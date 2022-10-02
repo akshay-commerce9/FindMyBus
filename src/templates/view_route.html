@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | View Routes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+</head>
+<body>
+
+<a href="{% url 'ownerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a>
+
+<script>
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": false,
+  "positionClass": "toast-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+</script>
+{% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+			{% elif message.tags == 'error'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<a href="{% url 'add_route' bsid %}"><button class="addbt">ADD ROUTE</button></a>
+<center>
+	<h1 style="color:red">{{bdata.bus_name}} - {{bdata.bus_no}}</h1>
+
+	{% for i in data %}
+	<div class="complaint ">
+		<a style="float:right" href="{% url 'del_route' i.id bsid %}" class="delete">Delete</a>
+		<h1 style="color:darkblue">{{i.first_st}} - {{i.last_st}}</h1>
+		<div class="scrolltab">
+		<table>
+			<tr>
+				<th class="tabpad">Stops</th>
+				<td class="tabpad">{{i.first_st}}</td>
+				{% for s in i.stops %}
+					<td class="tabpad">{{s}}</td>
+				{% endfor %}
+				<td class="tabpad">{{i.last_st}}</td>
+			</tr>
+			<tr>
+				<th class="tabpad">Times</th>
+				<td class="tabpad">{{i.first_ti}}</td>
+				{% for t in i.times %}
+					<td class="tabpad">{{t}}</td>
+				{% endfor %}
+				<td class="tabpad">{{i.last_ti}}</td>
+			</tr>
+		</table>
+		</div>
+
+
+	</div>
+	{% endfor %}
+</center>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Login Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<script type="text/javascript" src="{% static 'js/registration.js' %}"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+		
+		<!-- Set here the key for your domain in order to hide the watermark on the web server -->
+		<script type="text/javascript">
+			(function() {
+				JC.init({
+					domainKey: 'http://127.0.0.1:8000/'
+				});
+				})();
+		</script>
+
+</head>
+<body>
+
+ <script>
+	toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": false,
+  "positionClass": "toast-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+</script>
+{% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+			{% elif message.tags == 'error'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+<div class="wrap">
+<!-- tab style-1 -->
+<div class="row">
+	<div class="grid_12 columns">
+		<div class="tab style-1">
+    					<dl>
+ 			              <dd class="users"><a class="user active" href="#tab1" > </a></dd>
+    						<dd class="messages"><a class="msg" href="#tab2"> </a></dd>
+    						<dd class="settings"><a class="setting" href="#tab3" > </a></dd>
+    						<dd class="homes"><a class="home" href="{% url 'guest_home' %}"> </a></dd>
+    					</dl>
+    					<ul>
+    						<li class="active">
+			    				<div class="form">
+									<form method="POST" action="../userreg">
+										{% csrf_token %}
+										<h2 align="center">Passenger Registration</h2>
+										<input type="text" required class="active textbox"  placeholder="Full Name" name="name">
+										<input type="email" required class="textbox" placeholder="Email Address" name="email">
+										<input type="password" required class="textbox" placeholder="Password" name="password">
+										<input type="submit" value="Register">
+										<br><br>
+									</form>
+							    </div>
+							</li>
+							<li>
+			    				<div class="form">
+									<form method="POST" action="../ownerreg">
+										{% csrf_token %}
+										<h2 align="center">Owner Registration</h2>
+										<input type="text" required class="active textbox"  placeholder="Full Name" name="name">
+										<input type="email" required class="textbox" placeholder="Email Address" name="email">
+										<input type="password" required class="textbox" placeholder="Password" name="password">
+										<input type="submit" value="Register">
+										<br><br>
+									</form>
+							    </div>
+							</li>
+							<li>
+			    				<div class="form" >
+									<form method="POST" action="../login">
+										{% csrf_token %}
+										<h2 align="center" >User Login</h2>
+										<input type="email" required class="textbox" placeholder="Email Address" name="email">
+										<input type="password" required class="textbox" placeholder="Password" name="password">
+										<input type="submit" value="Login">
+										<br><br>
+
+									</form>
+							    </div>
+							</li>
+
+    					</ul>
+		</div>
+</div>            
+</div>			
+</div>
+<div class="wrap">
+	<!--footer-->
+<div class="footer">
+</div>
+<div class="clear"> </div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Complaints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+
+</head>
+<body>
+
+<a href="{% url 'adminhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a>
+
+<center>
+	{% for i in data %}
+	<div class="complaint">
+		<h2>{{i.bus_no}}</h2>
+		<p>{{i.complaint}}</p>
+		<a style="float:right" href="{% url 'del_complaint' i.id %}" class="delete">Delete</a>
+	</div>
+	{% endfor %}
+</center>
+
+    </body>
+</html>

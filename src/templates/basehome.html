@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="applijewelleryion/x-javascript">
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+
+    </script>
+    <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css'/>
+    <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css'/>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <script>
+  function loadplace() {
+    var availablePlaces = [
+        {% for place in places %}
+            "{{place.place}}",
+        {% endfor %}
+    ];
+
+    var availableBuses = [
+        {% for bus in buses %}
+            "{{bus.bus_no}}",
+        {% endfor %}
+    ];
+
+    $( ".city" ).autocomplete({
+      source: availablePlaces
+    });
+
+    $( ".bs_no" ).autocomplete({
+      source: availableBuses
+    });
+  };
+  loadplace();
+
+
+    </script>
+
+    <!-- Custom Theme files -->
+    <!--<script src="{% static 'js/jquery-1.12.0.min.js' %}"></script>-->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--animate-->
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script>
+ 		 new WOW().init();
+
+
+    </script>
+    <!--//end-animate-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+   $(document).ready(function() {
+   	loadplace();
+   });
+
+
+    </script>
+</head>
+<body>
+
+<!--- header ---->
+<div class="header">
+    <div class="container">
+        <div class="logo wow fadeInDown animated" data-wow-delay=".5s">
+            <a href="#">FindMy <span>Bus</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /header ---->
+{% block nav %}{% endblock %}
+<!--- banner ---->
+<div class="banner">
+    <div class="container">
+        <h1 class="wow zoomIn animated animated" data-wow-delay=".5s"
+            style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;"> FindMy Bus - Search Your Bus
+            Easily...</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-5 bann-info1 wow fadeInLeft animated" data-wow-delay=".5s">
+        <img src="{% static 'images/logo.jpg' %}" width="210px">
+    </div>
+    <div class="col-md-7 bann-info wow fadeInRight animated" data-wow-delay=".5s">
+        <h2>Search Your Bus</h2>
+        <form method="POST" action="../findbus">
+            {% csrf_token %}
+            <div class="ban-top">
+                <div class="bnr-left">
+                    <label class="inputLabel">From</label>
+                    <input class="city" type="text" required name="from">
+                </div>
+                <div class="bnr-left">
+                    <label class="inputLabel">To</label>
+                    <input class="city" type="text" required name="to">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="sear">
+                <input type="submit" class="sbtn" value="Search Buses">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<!--- /banner ---->
+
+
+<!---track---->
+<div class="container">
+    <div class="track">
+        <div class="col-md-6 track-right wow fadeInLeft animated" data-wow-delay=".5s">
+            <a href="track.html"><img src="{% static 'images/map1.png' %}" class="img-responsive" alt=""></a>
+        </div>
+        <div class="col-md-6 track-left wow fadeInRight animated" data-wow-delay=".5s">
+            <h3>TRACK MY BUS</h3>
+            <p>First of its own kind,bus tracking feature on bus</p>
+            <form method="POST" action="../track_bus">
+            {% csrf_token %}
+            <input class="bs_no" type="text" required name="bus_no" placeholder="Enter Bus Number.." style="line-height:30px;" >
+
+                <input type="submit" class="sbtn" value="Track Now">
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /track ---->
+<!--- routes ---->
+<div class="routes">
+    <div class="container">
+        <div class="col-md-4 routes-left wow fadeInRight animated" data-wow-delay=".5s">
+            <div class="rou-left">
+                <a href="#"><img src="{% static 'images/route_ft.png' %}"></a>
+            </div>
+            <div class="rou-rgt wow fadeInDown animated" data-wow-delay=".5s">
+                <h3>80000</h3>
+                <p>ROUTES</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 routes-left">
+            <div class="rou-left">
+                <a href="#"><img src="{% static 'images/bus_ft.png' %}"></a>
+            </div>
+            <div class="rou-rgt">
+                <h3>1900</h3>
+                <p>BUS OPERATORS</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 routes-left wow fadeInRight animated" data-wow-delay=".5s">
+            <div class="rou-left">
+                <a href="#"><img src="{% static 'images/user_ft.png' %}"></a>
+            </div>
+            <div class="rou-rgt">
+                <h3>7,000+</h3>
+                <p>USERS</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /routes ---->
+<!--- footer-top ---->
+<div class="footer-top">
+    <div class="container">
+        <div class="col-md-6 footer-left wow fadeInLeft animated" data-wow-delay=".5s">
+            <h3>Bus Operators</h3>
+            <ul>
+               <li>Cochin Express</li>
+               <li>Sangeetha Travels</li>
+               <li>Arya Travels</li>
+               <li>Orange Tours & Travels</li>
+               <li>Kallada Tours & Travels</li>
+               <li>Moonlight</li>
+               <li>Chakompally Travels</li>
+               <li>Varnam Travels</li>
+               <li>Sona Travels</li>
+               <li>UFO Travels</li>
+               <li>Malabar Tours & Travels</li>
+               <li>Skyline Tours & Travels</li>
+               <li>SRS Travels</li>
+               <li>Ashirwad Travels</li>
+               <li>Kombanzz</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="col-md-6 footer-left wow fadeInRight animated" data-wow-delay=".5s">
+            <h3>Bus Routes</h3>
+            <ul>
+                <li>Ernakulam-Palakkad</li>
+                <li>Vyttila-Kozhikode</li>
+                <li>Kaloor-Kakkanad</li>
+                <li>Ernakulam-Kannur</li>
+                <li>Vyttila-Kollam</li>
+                <li>Tirur-Kozhikode</li>
+                <li>Manjeri-Tirur</li>
+                <li>Nilambur-Palakkad</li>
+                <li>Kannur-Payyannur</li>
+                <li>Kasargode-Kozhikode</li>
+                <li>Iritty-Taliparamba</li>
+                <li>Kottayam-Vyttila</li>
+                <li>Kottakkal-Trivandrum</li>
+                <li>Thrissure-Alapuzha</li>
+                <li>Idukki-Gavi</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--- /footer-top ---->
+<!---copy-right ---->
+<div class="copy-right">
+    <div class="container">
+
+        <div class="footer-social-icons wow fadeInDown animated animated" data-wow-delay=".5s"
+             style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <ul>
+                <li><a class="facebook" href="#"><span>Facebook</span></a></li>
+                <li><a class="twitter" href="#"><span>Twitter</span></a></li>
+                <li><a class="flickr" href="#"><span>Flickr</span></a></li>
+                <li><a class="googleplus" href="#"><span>Google+</span></a></li>
+                <li><a class="dribbble" href="#"><span>Dribbble</span></a></li>
+            </ul>
+        </div>
+        <p class="wow zoomIn animated animated" data-wow-delay=".5s"
+           style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">© 2022 FindMY Bus . All Rights
+            Reserved | Design by <a href="http://w3layouts.com/" target="_blank">Mslayouts</a></p>
+    </div>
+</div>
+
+<!--- /copy-right ---->
+</body>
+</html>

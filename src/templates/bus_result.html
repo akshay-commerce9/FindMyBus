@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Bus Results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+jQuery(document).on('click', ".add", function(){
+    var $this = $(this);
+    var id = $this.attr('id').split('-')[1];
+	var d = "#dv-"+id;
+	$(d).slideToggle();
+});
+</script>
+</head>
+<body>
+
+<a href="{% url 'passengerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a><br>
+
+<center>
+    {% for i in routes %}
+		{% if from_st == i.first_st %}
+			{% for r in i.stops %}
+				{% if to_st == r %}
+					<div class="complaint">
+
+						<img src="{{i.bus_id.bus_img.url}}" width="100" height="100" style="display:inline-block">
+						<div style="display:inline-block;vertical-align: top;">
+							<h3 style="color:red">{{i.bus_id.bus_name}} - {{i.bus_id.bus_no}}</h3>
+							<table>
+								<tr align="center">
+									<td><h2>{{i.first_st}}</h2></td>
+									<td><h2>-</h2></td>
+									<td><h2>{{i.last_st}}</h2></td>
+								</tr>
+								<tr align="center">
+									<td><h2>{{i.first_ti}}</h2></td>
+									<td><h2>-</h2></td>
+									<td><h2>{{i.last_ti}}</h2></td>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<a style="float:right" href="#" class="add" id="btn-{{i.id}}">Routes</a>
+					</div>
+					 <div class="bus_route" id="dv-{{i.id}}">
+						<div class="scrolltab">
+						<table>
+							<tr>
+								<th class="tabpad">Stops</th>
+								<td class="tabpad">{{i.first_st}}</td>
+								{% for s in i.stops %}
+									<td class="tabpad">{{s}}</td>
+								{% endfor %}
+								<td class="tabpad">{{i.last_st}}</td>
+							</tr>
+							<tr>
+								<th class="tabpad">Times</th>
+								<td class="tabpad">{{i.first_ti}}</td>
+								{% for t in i.times %}
+									<td class="tabpad">{{t}}</td>
+								{% endfor %}
+								<td class="tabpad">{{i.last_ti}}</td>
+							</tr>
+						</table>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+			{% if to_st == i.last_st %}
+					<div class="complaint">
+
+						<img src="{{i.bus_id.bus_img.url}}" width="100" height="100" style="display:inline-block">
+						<div style="display:inline-block;vertical-align: top;">
+							<h3 style="color:red">{{i.bus_id.bus_name}} - {{i.bus_id.bus_no}}</h3>
+							<table>
+								<tr align="center">
+									<td><h2>{{i.first_st}}</h2></td>
+									<td><h2>-</h2></td>
+									<td><h2>{{i.last_st}}</h2></td>
+								</tr>
+								<tr align="center">
+									<td><h2>{{i.first_ti}}</h2></td>
+									<td><h2>-</h2></td>
+									<td><h2>{{i.last_ti}}</h2></td>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<a style="float:right" href="#" class="add" id="btn-{{i.id}}">Routes</a>
+					</div>
+					 <div class="bus_route" id="dv-{{i.id}}" >
+						<div class="scrolltab">
+						<table>
+							<tr>
+								<th class="tabpad">Stops</th>
+								<td class="tabpad">{{i.first_st}}</td>
+								{% for s in i.stops %}
+									<td class="tabpad">{{s}}</td>
+								{% endfor %}
+								<td class="tabpad">{{i.last_st}}</td>
+							</tr>
+							<tr>
+								<th class="tabpad">Times</th>
+								<td class="tabpad">{{i.first_ti}}</td>
+								{% for t in i.times %}
+									<td class="tabpad">{{t}}</td>
+								{% endfor %}
+								<td class="tabpad">{{i.last_ti}}</td>
+							</tr>
+						</table>
+						</div>
+					</div>
+				{% endif %}
+
+		{% else %}
+			{% for r in i.stops %}
+				{% if from_st == r %}
+					{% for s in i.stops %}
+						{% if to_st == s %}
+						<div class="complaint">
+							<img src="{{i.bus_id.bus_img.url}}" width="100" height="100" style="display:inline-block">
+							<div style="display:inline-block;vertical-align: top;">
+							<h3 style="color:red">{{i.bus_id.bus_name}} - {{i.bus_id.bus_no}}</h3>
+								<table>
+									<tr align="center">
+										<td><h2>{{i.first_st}}</h2></td>
+										<td><h2>-</h2></td>
+										<td><h2>{{i.last_st}}</h2></td>
+									</tr>
+									<tr align="center">
+										<td><h2>{{i.first_ti}}</h2></td>
+										<td><h2>-</h2></td>
+										<td><h2>{{i.last_ti}}</h2></td>
+									</tr>
+								</table>
+							</div>
+							<br>
+							<a style="float:right" href="#" class="add" id="btn-{{i.id}}">Routes</a>
+						</div>
+						 <div class="bus_route" id="dv-{{i.id}}">
+							<div class="scrolltab">
+							<table>
+								<tr>
+									<th class="tabpad">Stops</th>
+									<td class="tabpad">{{i.first_st}}</td>
+									{% for s in i.stops %}
+										<td class="tabpad">{{s}}</td>
+									{% endfor %}
+									<td class="tabpad">{{i.last_st}}</td>
+								</tr>
+								<tr>
+									<th class="tabpad">Times</th>
+									<td class="tabpad">{{i.first_ti}}</td>
+									{% for t in i.times %}
+										<td class="tabpad">{{t}}</td>
+									{% endfor %}
+									<td class="tabpad">{{i.last_ti}}</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+						{% endif %}
+					{% endfor %}
+					{% if to_st == i.last_st %}
+						<div class="complaint">
+							<img src="{{i.bus_id.bus_img.url}}" width="100" height="100" style="display:inline-block">
+							<div style="display:inline-block;vertical-align: top;">
+							<h3 style="color:red">{{i.bus_id.bus_name}} - {{i.bus_id.bus_no}}</h3>
+								<table>
+									<tr align="center">
+										<td><h2>{{i.first_st}}</h2></td>
+										<td><h2>-</h2></td>
+										<td><h2>{{i.last_st}}</h2></td>
+									</tr>
+									<tr align="center">
+										<td><h2>{{i.first_ti}}</h2></td>
+										<td><h2>-</h2></td>
+										<td><h2>{{i.last_ti}}</h2></td>
+									</tr>
+								</table>
+							</div>
+							<br>
+							<a style="float:right" href="#" class="add" id="btn-{{i.id}}">Routes</a>
+						</div>
+						 <div class="bus_route" id="dv-{{i.id}}">
+							<div class="scrolltab">
+							<table>
+								<tr>
+									<th class="tabpad">Stops</th>
+									<td class="tabpad">{{i.first_st}}</td>
+									{% for s in i.stops %}
+										<td class="tabpad">{{s}}</td>
+									{% endfor %}
+									<td class="tabpad">{{i.last_st}}</td>
+								</tr>
+								<tr>
+									<th class="tabpad">Times</th>
+									<td class="tabpad">{{i.first_ti}}</td>
+									{% for t in i.times %}
+										<td class="tabpad">{{t}}</td>
+									{% endfor %}
+									<td class="tabpad">{{i.last_ti}}</td>
+								</tr>
+							</table>
+							</div>
+						</div>
+						{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+	{% endfor %}
+</center>
+<script>
+window.onload = function() {
+	if(document.getElementsByClassName("complaint").length == 0)
+{
+	document.getElementById("no_cont").innerHTML = "No Buses Found..";
+}
+}
+</script>
+<h1 style="margin: 270px 480px;" id="no_cont"></h1>
+</body>
+</html>

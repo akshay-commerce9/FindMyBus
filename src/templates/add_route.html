@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Add Routes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+<script>
+   $(document).ready(function() {
+    var max_fields      = 50; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var i = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(i < max_fields){ //max input box allowed
+        $('#dynamic_field').append('<div id="row'+i+'"><input type="text" required placeholder="Intermediate Stop" class="pl_auto" name="stop_' + i + '" value="">&nbsp;<input type="time" required name="time_' + i + '"><button type="button" class="btn_remove" name="remove" id="'+ i +'">X</button></div>')
+        i++;
+        loadplace();
+        }
+    });
+    $(document).on('click', '.btn_remove', function() {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
+    });
+
+});
+</script>
+</head>
+<body>
+
+<a href="{% url 'ownerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a>
+
+<h2 align="center" style="color:red">{{bdata.bus_name}} - {{bdata.bus_no}}</h2>
+<div class="rtform">
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="button" name="add" class="add_field_button" id="add">Add Intermediate Stop</button>
+    <div><input type="text" required name="first_st" placeholder="First stop" class="pl_auto">&nbsp;<input type="time" required name="first_ti"><br></div>
+    <div id="dynamic_field"></div>
+<div><input type="text" required name="last_st" placeholder="Last stop" class="pl_auto">&nbsp;<input type="time" required name="last_ti"></div>
+<br><input type="submit" value="submit">
+</form>
+    </div>
+<script>
+   function loadplace() {
+    var availableTags = [
+        {% for place in places %}
+            "{{place.place}}",
+        {% endfor %}
+    ];
+    $( ".pl_auto" ).autocomplete({
+      source: availableTags
+    });
+  };
+  loadplace();
+  </script>
+</body>
+</html>
+

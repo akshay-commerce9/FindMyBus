@@ -1,0 +1,77 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Give Complaint</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{% static 'js/registration.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+<script>
+   $( function() {
+    var availableTags = [
+       {% for number in numbers %}
+            "{{number.bus_no}}",
+        {% endfor %}
+    ];
+    $( ".plc" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script>
+
+
+
+</head>
+<body>
+
+{% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<div class="wrap">
+<!-- tab style-1 -->
+	<a href="{% url 'passengerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin-top:20px;"/></a>
+<div class="row">
+	<div class="grid_12 columns">
+		<div class="tab style-1">
+    					<ul>
+    						<li class="active">
+			    				<div>
+									<form method="POST" class="form">
+										{% csrf_token %}
+										<h2 align="center">Submit Your Issue..</h2>
+										<input type="text" class="plc" required  placeholder="Bus Number" name="bus_no" id="busno">
+										<textarea class="textbox" required name="complaint" placeholder="Please Enter Your Issuues.."></textarea>
+										<input type="submit" value="Submit">
+										<br><br>
+									</form>
+							    </div>
+							</li>
+    					</ul>
+		</div>
+</div>            
+</div>			
+</div>
+<div class="wrap">
+	<!--footer-->
+<div class="footer">
+</div>
+<div class="clear"> </div>
+</div>
+    </body>
+</html>

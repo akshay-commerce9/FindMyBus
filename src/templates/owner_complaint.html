@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | View Complaints</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+
+</head>
+<body>
+
+<a href="{% url 'ownerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a>
+
+<center>
+	{% for i in data %}
+    {% for j in  bus %}
+        {% if i.bus_no == j.bus_no %}
+            <div class="complaint">
+                <h2>{{i.bus_no}}</h2>
+                <p>{{i.complaint}}</p>
+            </div>
+        {% endif %}
+	{% endfor %}
+	{% endfor %}
+</center>
+
+    </body>
+</html>

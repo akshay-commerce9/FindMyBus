@@ -1,0 +1,59 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+<title>FindMyBus | Add Bus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{% static 'css/registration.css' %}" />
+<script type="text/javascript" src="{% static 'js/registration.js' %}"></script>
+
+		<!-- Set here the key for your domain in order to hide the watermark on the web server -->
+		<script type="text/javascript">
+			(function() {
+				JC.init({
+					domainKey: 'http://127.0.0.1:8000/'
+				});
+				})();
+		</script>
+
+</head>
+<body>
+
+<a href="{% url 'ownerhome' %}"><img src="{% static 'images/hm.png' %}" style="margin:5px 20px;float:left"/></a>
+
+<div class="wrap">
+<!-- tab style-1 -->
+<div class="row">
+	<div class="grid_12 columns">
+		<div class="tab style-1">
+    					<ul>
+    						<li class="active">
+			    				<div class="form">
+									<form method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<h2 align="center">Add Bus</h2>
+										<input type="text" class="active textbox" required  placeholder="Bus Name" name="bus_name">
+										<input type="text" class="active textbox" required placeholder="Bus Number" name="bus_no">
+										 Bus Image : <input type="file" required class="active textbox"  name="bus_img">
+										<input type="submit" value="Submit">
+										<br><br>
+									</form>
+							    </div>
+							</li>
+    					</ul>
+		</div>
+</div>
+</div>
+</div>
+<div class="wrap">
+	<!--footer-->
+<div class="footer">
+</div>
+<div class="clear"> </div>
+</div>
+    </body>
+</html>
